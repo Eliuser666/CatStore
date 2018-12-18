@@ -18,3 +18,4 @@
 *.zip
 *.rar
 *.tar.gz
+/build/

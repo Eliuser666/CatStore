@@ -15,7 +15,7 @@
 <script src="${ pageContext.request.contextPath }/js/bootstrap.min.js"
 	type="text/javascript"></script>
 <!-- 引入自定义css文件 style.css -->
-<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/css/style.css" type="text/css" />
 
 <style>
 body {
@@ -34,7 +34,7 @@ body {
 	
 }
 
-font {
+font .regist{
 	color: #3164af;
 	font-size: 18px;
 	font-weight: normal;
@@ -46,19 +46,19 @@ font {
 		$("username").blur(function() {
 
 			var $value = $(this).val();
-			$.post("${pageContext.request.contextPath}/UserServlet", {
-				"method" : "checkUsername",
-				"username" : $value
-			}, function(data) {
-				if (data == 1) {
-					$("#s1").html("<font>");
-				} else if (data == 2) {
+			if ($value != "") {
+				$.post("${pageContext.request.contextPath}/UserServlet", {"method" : "checkUsername","username" : $value}, function(data) {
+					if (data == 1) {
+						$("#s1").html("<font color='green'>用户名可以使用</font>");
+						$("#regBut").attr("disable", false);
+					} else if (data == 2) {
+						$("#s1").html("<font color='red'>用户名已经被占用</font>");
+						$("#regBut").attr("disable", true);
+					}
 				}
 
+				);
 			}
-
-			);
-
 		});
 
 	});
@@ -79,14 +79,14 @@ font {
 
 			<div class="col-md-8"
 				style="background: #fff; padding: 40px 80px; margin: 30px; border: 7px solid #ccc;">
-				<font>会员注册</font>USER REGISTER
+				<font class="regist">会员注册</font>USER REGISTER
 				<form class="form-horizontal" style="margin-top: 5px;">
 					<div class="form-group">
 						<label for="username" class="col-sm-2 control-label">用户名</label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="username"
-								placeholder="请输入用户名"><span id="s1"></span>
-						</div>
+								placeholder="请输入用户名">
+						</div><span id="s1"></span>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">密码</label>
@@ -149,8 +149,8 @@ font {
 
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<input type="submit" width="100" value="注册" name="submit"
-								border="0"
+							<input type="submit" id="regBut" width="100" value="注册"
+								name="submit" border="0"
 								style="background: url('${pageContext.request.contextPath}/images/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 				    height:35px;width:100px;color:white;">
 						</div>
