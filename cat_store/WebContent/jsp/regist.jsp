@@ -9,9 +9,7 @@
 <link rel="stylesheet"
 	href="${ pageContext.request.contextPath }/css/bootstrap.min.css"
 	type="text/css" />
-<script
-	src="${ pageContext.request.contextPath }/js/jquery-1.11.3.min.js"
-	type="text/javascript"></script>
+<script src="${ pageContext.request.contextPath }/js/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="${ pageContext.request.contextPath }/js/bootstrap.min.js"
 	type="text/javascript"></script>
 <!-- 引入自定义css文件 style.css -->
@@ -42,26 +40,27 @@ font .regist{
 }
 </style>
 <script type="text/javascript">
-	$(function() {
-		$("username").blur(function() {
-
-			var $value = $(this).val();
-			if ($value != "") {
-				$.post("${pageContext.request.contextPath}/UserServlet", {"method" : "checkUsername","username" : $value}, function(data) {
-					if (data == 1) {
-						$("#s1").html("<font color='green'>用户名可以使用</font>");
-						$("#regBut").attr("disable", false);
-					} else if (data == 2) {
-						$("#s1").html("<font color='red'>用户名已经被占用</font>");
-						$("#regBut").attr("disable", true);
-					}
+$(function() {
+	$("#username").blur(function() {
+		var $value = $(this).val();
+		if ($value != "") {
+			$.post("${ pageContext.request.contextPath }/UserServlet", {
+				"method" : "checkUsername",
+				"username" : $value
+			}, function(data) {
+				if (data == 1) {
+					$("#s1").html("<font color='green'>用户名可以使用</font>");
+					$("#regBut").attr("disabled", false);
+				} else if (data == 2) {
+					$("#s1").html("<font color='red'>用户名已经被占用</font>");
+					$("#regBut").attr("disabled", true);
 				}
-
-				);
 			}
-		});
-
+);
+		}
 	});
+
+});
 </script>
 
 </head>
