@@ -13,10 +13,18 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User findByUsername(String username) throws SQLException {
-QueryRunner queryRunner=new QueryRunner(JDBCUtils.getDataSource());
-		String sql="select * from user where username=?";
-		User user=queryRunner.query(sql, new BeanHandler<User>(User.class), username);
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "select * from user where username=?";
+		User user = queryRunner.query(sql, new BeanHandler<User>(User.class), username);
 		return user;
 	}
 
+	@Override
+	public void save(User user) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql ="insert into values (?,?,?,?,?,?,?,?,?,?)";
+		Object[] params={user.getUid(), user.getUsername(), user.getPassword(), user.getName(), user.getEmail(),
+				user.getTelephone(), user.getBirthday(), user.getSex(), user.getState(), user.getCode() };
+		queryRunner.update(sql, params);
+	}
 }
