@@ -13,7 +13,7 @@
 *.class
 
 #包文件
-*.jar
+#*.jar
 *.war
 *.zip
 *.rar
