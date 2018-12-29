@@ -80,7 +80,9 @@ $(function() {
 				style="background: #fff; padding: 40px 80px; margin: 30px; border: 7px solid #ccc;">
 				<font class="regist">会员注册</font>USER REGISTER
 				<form class="form-horizontal" style="margin-top: 5px;" action="${ pageContext.request.contextPath }/UserServlet" method="post">
-					<input type="hidden" name="method" value="regist">//此处调用UserServlet中的regist方法
+					<!-- 此处调用UserServlet中的regist方法 -->
+					<input type="hidden" name="method" value="regist">
+					
 					<div class="form-group">
 						<label for="username" class="col-sm-2 control-label">用户名</label>
 						<div class="col-sm-6">
