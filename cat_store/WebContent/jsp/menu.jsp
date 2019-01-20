@@ -5,7 +5,6 @@
 
 
 		<!--
-            	时间：2015-12-30
             	描述：菜单栏
             -->
 		<div class="container-fluid">
@@ -57,7 +56,6 @@
 						</div>
 						<button type="submit" class="btn btn-default">Submit</button>
 					</form>
-
 				</div>
 				<!-- /.navbar-collapse -->
 			</div>
