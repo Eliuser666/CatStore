@@ -5,7 +5,6 @@
 
 
 		<!--
-            	时间：2015-12-30
             	描述：菜单栏
             -->
 		<div class="container-fluid">
@@ -45,20 +44,18 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="product_list.htm">手机数码<span
-								class="sr-only">(current)</span></a></li>
-						<li><a href="#">电脑办公</a></li>
-						<li><a href="#">电脑办公</a></li>
-						<li><a href="#">电脑办公</a></li>
-					</ul>
+						<ul class="nav navbar-nav">
+								<li class="active"><a href="product_list.htm">饼干糕点<span class="sr-only">(current)</span></a></li>
+								<li><a href="#">茶饮冲调</a></li>
+								<li><a href="#">休闲零食</a></li>
+								<li><a href="#">蜜饯果干</a></li>
+							</ul>
 					<form class="navbar-form navbar-right" role="search">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Search">
 						</div>
 						<button type="submit" class="btn btn-default">Submit</button>
 					</form>
-
 				</div>
 				<!-- /.navbar-collapse -->
 			</div>
