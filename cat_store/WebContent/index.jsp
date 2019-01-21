@@ -10,7 +10,5 @@
 <jsp:forward page="/IndexServlet">
 <jsp:param value="index" name="method"/>
 </jsp:forward>
-
-
 </body>
 </html>

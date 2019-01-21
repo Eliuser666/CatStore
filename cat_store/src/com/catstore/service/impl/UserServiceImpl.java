@@ -27,5 +27,13 @@ public class UserServiceImpl implements UserService {
 		userDao.save(user);
 	}
 
+	@Override
+	public User login(User user) throws SQLException {
+		// TODO Auto-generated method stub
+		UserDao userDao = new UserDaoImpl();
+		
+		return userDao.login(user);
+	}
+
 }
 

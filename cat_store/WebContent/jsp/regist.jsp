@@ -100,7 +100,7 @@ $(function() {
 					<div class="form-group">
 						<label for="confirmpwd" class="col-sm-2 control-label">确认密码</label>
 						<div class="col-sm-6">
-							<input type="password" class="form-control" id="confirmpwd" name="repassword"
+							<input type="password" class="form-control" id="confirmpwd"
 								placeholder="请输入确认密码">
 						</div>
 					</div>
@@ -139,7 +139,7 @@ $(function() {
 					<div class="form-group">
 						<label for="date" class="col-sm-2 control-label">出生日期</label>
 						<div class="col-sm-6">
-							<input type="date" class="form-control" name="birthday">
+							<input type="text" class="form-control" name="birthday">
 						</div>
 					</div>
 
@@ -192,6 +192,6 @@ $(function() {
 		</ul>
 	</div>
 	<div style="text-align: center; margin-top: 5px; margin-bottom: 20px;">
-		Copyright &copy; 2005-2016 传智商城 版权所有</div>
+		Copyright &copy; 2011-2019 馋猫商城 版权所有</div>
 </body>
 </html>
