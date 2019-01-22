@@ -7,7 +7,6 @@
 /target
 #编译文件
 *.class
-
 #包文件
 #*.jar
 *.war

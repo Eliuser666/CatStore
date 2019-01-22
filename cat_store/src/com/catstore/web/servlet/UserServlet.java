@@ -1,11 +1,14 @@
 package com.catstore.web.servlet;
 
+import java.util.Date;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
 
 import com.catstore.domain.User;
 import com.catstore.service.UserService;
@@ -59,6 +62,7 @@ public class UserServlet extends BaseServlet {
 			Map<String, String[]> map = req.getParameterMap();
 			// 封装数据
 			User user=new User();
+			ConvertUtils.register(new com.catstore.utils.MyDateConverter(), Date.class);
 			BeanUtils.populate(user, map);
 			// 调用业务层
 			UserService userService = new UserServiceImpl();
@@ -66,6 +70,9 @@ public class UserServlet extends BaseServlet {
 			// 页面跳转
 			user.setState(2);//已注册
 			req.setAttribute("msg", "注册成功！请去登录！");
+			//user.setState(2); // 设置激活的状态为已经激活.
+			//user.setCode(null);
+			//userService.update(user);
 			return "/jsp/msg.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,7 +85,60 @@ public class UserServlet extends BaseServlet {
 	public String loginUI(HttpServletRequest req,HttpServletResponse resp){
 		return "/jsp/login.jsp";
 	}
-	
-	
+	/**
+	 * 用户登录的执行的方法:login
+	 */
+	public String login(HttpServletRequest req,HttpServletResponse resp){
+		try{
+//			// 一次性验证码程序:
+//			String code1 = req.getParameter("code");
+//			String code2 = (String)req.getSession().getAttribute("code");
+//			req.getSession().removeAttribute("code");
+//			if(!code1.equalsIgnoreCase(code2)){
+//				req.setAttribute("msg", "验证码输入错误!");
+//				return "/jsp/login.jsp";
+//			}
+//			
+			// 接收参数:
+			Map<String,String[]> map = req.getParameterMap();
+			// 封装数据：
+			User user = new User();
+			BeanUtils.populate(user, map);
+			// 调用业务层:
+	//		UserService userService = (UserService) BeanFactory.getBean("userService");
+			UserService userService=new UserServiceImpl();
+			User existUser = userService.login(user);
+			if(existUser == null){
+				req.setAttribute("msg", "用户名或密码错误！");
+				return "/jsp/login.jsp";
+			}else{
+				// 登录成功:自动登录
+//				String autoLogin = req.getParameter("autoLogin");
+//				if("true".equals(autoLogin)){
+//					Cookie cookie = new Cookie("autoLogin", existUser.getUsername()+"#"+existUser.getPassword());
+//					cookie.setPath("/store_v2.0");
+//					cookie.setMaxAge(7* 24 * 60 * 60);
+//					resp.addCookie(cookie);
+//				}
+//				
+//				// 记住用户名:
+//				String remember = req.getParameter("remember");
+//				if("true".equals(remember)){
+//					Cookie cookie = new Cookie("username",existUser.getUsername());
+//					cookie.setPath("/store_v2.0");
+//					cookie.setMaxAge(24 * 60 * 60);
+//					resp.addCookie(cookie);
+//				}
+//				
+				req.getSession().setAttribute("existUser", existUser);
+				resp.sendRedirect(req.getContextPath()+"/index.jsp");
+				return null;
+			}
+			// 页面跳转
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+	}
 	
 }

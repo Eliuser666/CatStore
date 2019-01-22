@@ -10,5 +10,7 @@ public interface UserDao {
 
 	void save(User user) throws SQLException;
 
+	User login(User user) throws SQLException;
+
 
 }
