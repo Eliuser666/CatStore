@@ -64,11 +64,21 @@ public class UserServlet extends BaseServlet {
 			UserService userService = new UserServiceImpl();
 			userService.save(user);
 			// 页面跳转
-			req.setAttribute("msg", "注册成功！请去邮箱激活！");
+			user.setState(2);//已注册
+			req.setAttribute("msg", "注册成功！请去登录！");
 			return "/jsp/msg.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
 	}
+	/**
+	 * 跳转到登录页面的执行的方法:loginUI
+	 */
+	public String loginUI(HttpServletRequest req,HttpServletResponse resp){
+		return "/jsp/login.jsp";
+	}
+	
+	
+	
 }
