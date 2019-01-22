@@ -2,13 +2,15 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%-- <script type="text/javascript">
-$(function(){
-	$.post("${ pageContext.request.contextPath }/CategoryServlet",{"method":"findAll"},function(data){
-		alter(data);
+<script type="text/javascript">
+	$(function(){
+		$.post("${ pageContext.request.contextPath }/CategoryServlet",{"method":"findAll"},function(data){
+			$(data).each(function(i,n){
+				$("#menuID").append("<li><a href='#'>"+n.cname+"</a></li>");
+			});
+		},"json");
 	});
-});
-</script> --%>
+</script>
 
            <%-- 描述：菜单栏 --%>
         
@@ -53,10 +55,10 @@ $(function(){
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 						<ul id="menuID" class="nav navbar-nav">
-								<li class="active"><a href="product_list.htm">饼干糕点<span class="sr-only">(current)</span></a></li>
+								<!-- <li class="active"><a href="product_list.htm">饼干糕点<span class="sr-only">(current)</span></a></li>
 								<li><a href="#">茶饮冲调</a></li>
 								<li><a href="#">休闲零食</a></li>
-								<li><a href="#">蜜饯果干</a></li>
+								<li><a href="#">蜜饯果干</a></li> -->
 							</ul>
 					<form class="navbar-form navbar-right" role="search">
 						<div class="form-group">

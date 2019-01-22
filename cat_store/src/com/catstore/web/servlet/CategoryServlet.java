@@ -31,7 +31,7 @@ public class CategoryServlet extends BaseServlet{
 			List<Category> list = categoryService.findAll();
 			// 将list转成JSON: 
 			JSONArray jsonArray = JSONArray.fromObject(list);
-			System.out.println(jsonArray.toString());
+		//	System.out.println(jsonArray.toString());
 			resp.getWriter().println(jsonArray.toString());
 		}catch(Exception e){
 			e.printStackTrace();

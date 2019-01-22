@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,17 +9,15 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/css/bootstrap.min.css" type="text/css" />
 <script src="${ pageContext.request.contextPath }/js/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="${ pageContext.request.contextPath }/js/bootstrap.min.js" type="text/javascript"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(function(){
 	$.post("${ pageContext.request.contextPath }/CategoryServlet",{"method":"findAll"},function(data){
-		alter(data);
-		
+		alert(data);
 	});
 });
-</script>
+</script> -->
 </head>
 <body>
-
 	<div class="container-fluid">
 <%@ include file="menu.jsp" %>
 		<%--描述：轮播条 --%>

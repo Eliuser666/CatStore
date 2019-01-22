@@ -31,12 +31,12 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>CartServlet</display-name>
-    <servlet-name>CartServlet</servlet-name>
-    <servlet-class>com.catstore.web.servlet.CartServlet</servlet-class>
+    <display-name>CategoryServlet</display-name>
+    <servlet-name>CategoryServlet</servlet-name>
+    <servlet-class>com.catstore.web.servlet.CategoryServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CartServlet</servlet-name>
-    <url-pattern>/CartServlet</url-pattern>
+    <servlet-name>CategoryServlet</servlet-name>
+    <url-pattern>/CategoryServlet</url-pattern>
   </servlet-mapping>
 </web-app>
