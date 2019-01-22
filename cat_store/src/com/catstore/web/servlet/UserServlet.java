@@ -1,5 +1,6 @@
 package com.catstore.web.servlet;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
@@ -112,11 +113,11 @@ public class UserServlet extends BaseServlet {
 				req.setAttribute("msg", "用户名或密码错误！");
 				return "/jsp/login.jsp";
 			}else{
-				// 登录成功:自动登录
+//				// 登录成功:自动登录
 //				String autoLogin = req.getParameter("autoLogin");
 //				if("true".equals(autoLogin)){
 //					Cookie cookie = new Cookie("autoLogin", existUser.getUsername()+"#"+existUser.getPassword());
-//					cookie.setPath("/store_v2.0");
+//					cookie.setPath("/cat_store");
 //					cookie.setMaxAge(7* 24 * 60 * 60);
 //					resp.addCookie(cookie);
 //				}
@@ -125,11 +126,11 @@ public class UserServlet extends BaseServlet {
 //				String remember = req.getParameter("remember");
 //				if("true".equals(remember)){
 //					Cookie cookie = new Cookie("username",existUser.getUsername());
-//					cookie.setPath("/store_v2.0");
+//					cookie.setPath("/cat_store");
 //					cookie.setMaxAge(24 * 60 * 60);
 //					resp.addCookie(cookie);
 //				}
-//				
+				
 				req.getSession().setAttribute("existUser", existUser);
 				resp.sendRedirect(req.getContextPath()+"/index.jsp");
 				return null;
@@ -140,5 +141,28 @@ public class UserServlet extends BaseServlet {
 			throw new RuntimeException();
 		}
 	}
-	
+	/**
+	 * 用户退出功能的方法:logOut
+	 * @param req
+	 * @param resp
+	 * @return
+	 */
+	public String logOut(HttpServletRequest req,HttpServletResponse resp){
+		
+		
+		try {
+			// 销毁session
+			req.getSession().invalidate();
+			// 清空自动登录的Cookie:
+			Cookie cookie = new Cookie("autoLogin","");
+			cookie.setPath("/cat_store");
+			cookie.setMaxAge(0);
+			resp.addCookie(cookie);
+			resp.sendRedirect(req.getContextPath()+"/index.jsp");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 }

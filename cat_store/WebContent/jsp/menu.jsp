@@ -2,12 +2,16 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%-- <script type="text/javascript">
+$(function(){
+	$.post("${ pageContext.request.contextPath }/CategoryServlet",{"method":"findAll"},function(data){
+		alter(data);
+	});
+});
+</script> --%>
 
-
-
-		<!--
-            	描述：菜单栏
-            -->
+           <%-- 描述：菜单栏 --%>
+        
 		<div class="container-fluid">
 			<div class="col-md-4">
 				<img src="${ pageContext.request.contextPath }/img/logo2.png" />
@@ -24,16 +28,12 @@
 						<c:if test="${not empty existUser }">
 						<li>您好:${ existUser.name }</li>
 						<li><a href="${ pageContext.request.contextPath }/UserServlet?method=logOut">退出</a></li>
-						<%-- <li><a href="${ pageContext.request.contextPath }/OrderServlet?method=findByUid&currPage=1">我的订单</a></li> --%>
 					</c:if>	
 					<li><a href="cart.htm">购物车</a></li>
 				</ol>
 			</div>
 		</div>
-		<!--
-            	时间：2015-12-30
-            	描述：导航条
-            -->
+		<%--描述：导航条 --%>
 		<div class="container-fluid">
 			<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
@@ -49,10 +49,10 @@
 					<a class="navbar-brand" href="#">首页</a>
 				</div>
 
-				<!-- Collect the nav links, forms, and other content for toggling -->
+				<%-- Collect the nav links, forms, and other content for toggling --%>
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav">
+						<ul id="menuID" class="nav navbar-nav">
 								<li class="active"><a href="product_list.htm">饼干糕点<span class="sr-only">(current)</span></a></li>
 								<li><a href="#">茶饮冲调</a></li>
 								<li><a href="#">休闲零食</a></li>
@@ -65,7 +65,7 @@
 						<button type="submit" class="btn btn-default">Submit</button>
 					</form>
 				</div>
-				<!-- /.navbar-collapse -->
+				<%-- /.navbar-collapse --%>
 			</div>
-			<!-- /.container-fluid --> </nav>
+			<%-- /.container-fluid --%> </nav>
 		</div>
