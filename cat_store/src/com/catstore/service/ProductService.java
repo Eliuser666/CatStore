@@ -10,6 +10,9 @@ public interface ProductService {
 
 	List<Product> findByDiscounts() throws SQLException;
 
+	Product findByPid(String pid);
+
+
 
 
 }

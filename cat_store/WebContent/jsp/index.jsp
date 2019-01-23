@@ -72,7 +72,18 @@ $(function(){
 							<img src="${ pageContext.request.contextPath }/products/hao/middle01.jpg" width="516px" height="200px" style="display: inline-block;">
 						</a>
 					</div>
+				<c:forEach var="p" items="${ hotList }">
+					<div class="col-md-2" style="text-align:center;height:200px;padding:10px 0px;">
+						<a href="${ pageContext.request.contextPath }/ProductServlet?method=findByPid&pid=${ p.pid}">
+							<img src="${ pageContext.request.contextPath }/${ p.pimage}" width="130" height="130" style="display: inline-block;">
+						</a>
+						<p><a href="${ pageContext.request.contextPath }/ProductServlet?method=findByPid&pid=${ p.pid}" style='color:#666'>${ p.pname }</a></p>
+						<p><font color="#E4393C" style="font-size:16px">&yen;${ p.shop_price }</font></p>
+					</div>
+					</c:forEach>
 				
+					
+				<%-- 
 					<div class="col-md-2" style="text-align:center;height:200px;padding:10px 0px;">
 						<a href="product_info.htm">
 							<img src="${ pageContext.request.contextPath }/products/hao/small03.jpg" width="130" height="130" style="display: inline-block;">
@@ -142,7 +153,7 @@ $(function(){
 						</a>
 						<p><a href="product_info.html" style='color:#666'>加煌爽口麻辣味笋尖</a></p>
 						<p><font color="#E4393C" style="font-size:16px">&yen;4.50</font></p>
-					</div>
+					</div> --%>
 				</div>
 			</div>
             <div class="container-fluid">

@@ -22,4 +22,11 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.findByDiscounts();
 	}
 
+	@Override
+	public Product findByPid(String pid) {
+		//ProductDao productDao = (ProductDao) BeanFactory.getBean("productDao");
+		ProductDao productDao =new ProductDaoImpl();
+		return productDao.findByPid(pid);
+	}
+
 }

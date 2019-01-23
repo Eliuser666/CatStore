@@ -26,4 +26,10 @@ public class ProductDaoImpl implements ProductDao {
 		return list;
 	}
 
+	@Override
+	public Product findByPid(String pid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
