@@ -91,15 +91,16 @@ public class UserServlet extends BaseServlet {
 	 */
 	public String login(HttpServletRequest req,HttpServletResponse resp){
 		try{
-//			// 一次性验证码程序:
-//			String code1 = req.getParameter("code");
-//			String code2 = (String)req.getSession().getAttribute("code");
-//			req.getSession().removeAttribute("code");
-//			if(!code1.equalsIgnoreCase(code2)){
-//				req.setAttribute("msg", "验证码输入错误!");
-//				return "/jsp/login.jsp";
-//			}
-//			
+			// 一次性验证码程序:
+			String code1 = req.getParameter("code");
+			//code2为验证码，code1为输入的验证码
+			String code2 = (String)req.getSession().getAttribute("code");
+			req.getSession().removeAttribute("code");
+			if(!code1.equalsIgnoreCase(code2)){
+				req.setAttribute("msg", "验证码输入错误!请重新输入");
+				return "/jsp/login.jsp";
+			}
+			
 			// 接收参数:
 			Map<String,String[]> map = req.getParameterMap();
 			// 封装数据：
@@ -113,23 +114,23 @@ public class UserServlet extends BaseServlet {
 				req.setAttribute("msg", "用户名或密码错误！");
 				return "/jsp/login.jsp";
 			}else{
-//				// 登录成功:自动登录
-//				String autoLogin = req.getParameter("autoLogin");
-//				if("true".equals(autoLogin)){
-//					Cookie cookie = new Cookie("autoLogin", existUser.getUsername()+"#"+existUser.getPassword());
-//					cookie.setPath("/cat_store");
-//					cookie.setMaxAge(7* 24 * 60 * 60);
-//					resp.addCookie(cookie);
-//				}
-//				
-//				// 记住用户名:
-//				String remember = req.getParameter("remember");
-//				if("true".equals(remember)){
-//					Cookie cookie = new Cookie("username",existUser.getUsername());
-//					cookie.setPath("/cat_store");
-//					cookie.setMaxAge(24 * 60 * 60);
-//					resp.addCookie(cookie);
-//				}
+				// 登录成功:自动登录
+				String autoLogin = req.getParameter("autoLogin");
+				if("true".equals(autoLogin)){
+					Cookie cookie = new Cookie("autoLogin", existUser.getUsername()+"#"+existUser.getPassword());
+					cookie.setPath("/cat_store");
+					cookie.setMaxAge(7* 24 * 60 * 60);
+					resp.addCookie(cookie);
+				}
+				
+				// 记住用户名:
+				String remember = req.getParameter("remember");
+				if("true".equals(remember)){
+					Cookie cookie = new Cookie("username",existUser.getUsername());
+					cookie.setPath("/cat_store");
+					cookie.setMaxAge(24 * 60 * 60);
+					resp.addCookie(cookie);
+				}
 				
 				req.getSession().setAttribute("existUser", existUser);
 				resp.sendRedirect(req.getContextPath()+"/index.jsp");

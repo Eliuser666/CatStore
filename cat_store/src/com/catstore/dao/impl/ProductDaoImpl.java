@@ -4,7 +4,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.catstore.dao.ProductDao;
 import com.catstore.domain.Product;
@@ -27,9 +29,27 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public Product findByPid(String pid) {
-		// TODO Auto-generated method stub
-		return null;
+	public Product findByPid(String pid) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "select * from product where pid = ?";
+		Product product = queryRunner.query(sql, new BeanHandler<Product>(Product.class), pid);
+		return product;
+	}
+
+	@Override
+	public Integer findCountByCid(String cid) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "select count(*) from product where cid = ? and pflag = ?";
+		Long count = (Long) queryRunner.query(sql, new ScalarHandler(), cid,0);
+		return count.intValue();
+	}
+
+	@Override
+	public List<Product> findPageByCid(String cid, int begin, Integer pageSize) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "select * from product where pflag = ? and cid = ? order by pdate desc limit ?,?";
+		List<Product> list = queryRunner.query(sql, new BeanListHandler<Product>(Product.class), 0,cid,begin,pageSize);
+		return list;
 	}
 
 }

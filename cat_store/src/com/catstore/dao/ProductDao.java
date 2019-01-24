@@ -11,6 +11,10 @@ public interface ProductDao {
 
 	List<Product> findByDiscounts() throws SQLException;
 
-	Product findByPid(String pid);
+	Product findByPid(String pid) throws SQLException;
+
+	Integer findCountByCid(String cid) throws SQLException;
+
+	List<Product> findPageByCid(String cid, int begin, Integer pageSize) throws SQLException;
 
 }

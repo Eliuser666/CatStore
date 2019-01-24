@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.catstore.dao.ProductDao;
 import com.catstore.dao.impl.ProductDaoImpl;
+import com.catstore.domain.PageBean;
 import com.catstore.domain.Product;
 import com.catstore.service.ProductService;
 
@@ -23,10 +24,35 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product findByPid(String pid) {
+	public Product findByPid(String pid) throws SQLException {
 		//ProductDao productDao = (ProductDao) BeanFactory.getBean("productDao");
 		ProductDao productDao =new ProductDaoImpl();
 		return productDao.findByPid(pid);
+	}
+
+	@Override
+	public PageBean<Product> findByPageCid(String cid, Integer currPage) throws SQLException {
+		PageBean<Product> pageBean = new PageBean<Product>();
+		// 设置参数：
+		// 设置当前页数：
+		pageBean.setCurrPage(currPage);
+		// 设置每页显示的记录数:
+		Integer pageSize = 12;
+		pageBean.setPageSize(pageSize);
+		// 设置总记录数:
+		ProductDao productDao=new ProductDaoImpl();
+	//	ProductDao productDao = (ProductDao) BeanFactory.getBean("productDao");
+		Integer totalCount = productDao.findCountByCid(cid);
+		pageBean.setTotalCount(totalCount);
+		// 设置总页数:
+		double tc = totalCount;
+		Double num = Math.ceil(tc / pageSize);
+		pageBean.setTotalPage(num.intValue());
+		// 设置每页显示的数据的集合:
+		int begin = (currPage - 1) * pageSize;
+		List<Product> list = productDao.findPageByCid(cid,begin,pageSize);
+		pageBean.setList(list);
+		return pageBean;
 	}
 
 }

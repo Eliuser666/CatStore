@@ -7,6 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.catstore.domain.PageBean;
 import com.catstore.domain.Product;
 import com.catstore.service.ProductService;
 import com.catstore.service.impl.ProductServiceImpl;
@@ -17,7 +18,26 @@ import com.catstore.utils.BaseServlet;
  */
 public class ProductServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * 根据分类的ID查询某个分类下的商品（分页显示）：findByCid
+	 */
+	public String findByCid(HttpServletRequest req,HttpServletResponse resp){
+		try{
+			// 接收参数:
+			String cid = req.getParameter("cid");
+			Integer currPage = Integer.parseInt(req.getParameter("currPage"));
+			// 调用业务层:
+			ProductService productService =new ProductServiceImpl();
+			//ProductService productService = (ProductService) BeanFactory.getBean("productService");
+			PageBean<Product> pageBean = productService.findByPageCid(cid,currPage);
+			req.setAttribute("pageBean", pageBean);
+			return "/jsp/product_list.jsp";
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+		
+	}
 	/**
 	 * 根据商品ID查询商品详情的执行的方法:findByPid
 	 */
@@ -78,7 +98,7 @@ public class ProductServlet extends BaseServlet {
 //				resp.addCookie(c);
 			//}
 			
-			// 页面跳转:
+			// 页面跳转:product为根据pid查出的商品，以p的名字传到product_info.jsp"，在product_info.jsp中调用p
 			req.setAttribute("p", product);
 			return "/jsp/product_info.jsp";
 		}catch(Exception e){

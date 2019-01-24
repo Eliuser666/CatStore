@@ -6,7 +6,7 @@
 	$(function(){
 		$.post("${ pageContext.request.contextPath }/CategoryServlet",{"method":"findAll"},function(data){
 			$(data).each(function(i,n){
-				$("#menuID").append("<li><a href='#'>"+n.cname+"</a></li>");
+				$("#menuID").append("<li><a href='${ pageContext.request.contextPath }/ProductServlet?cid="+n.cid+"&method=findByCid&currPage=1'>"+n.cname+"</a></li>");
 			});
 		},"json");
 	});
@@ -30,8 +30,10 @@
 						<c:if test="${not empty existUser }">
 						<li>您好:${ existUser.name }</li>
 						<li><a href="${ pageContext.request.contextPath }/UserServlet?method=logOut">退出</a></li>
+					<li><a href="${ pageContext.request.contextPath }/OrderServlet?method=findByUid&currPage=1">我的订单</a></li>
 					</c:if>	
-					<li><a href="cart.htm">购物车</a></li>
+					
+					<li><a href="${ pageContext.request.contextPath }/jsp/cart.jsp">购物车</a></li>
 				</ol>
 			</div>
 		</div>
@@ -48,7 +50,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">首页</a>
+					<a class="navbar-brand" href="${ pageContext.request.contextPath }/index.jsp">首页</a>
 				</div>
 
 				<%-- Collect the nav links, forms, and other content for toggling --%>
