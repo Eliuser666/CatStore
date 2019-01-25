@@ -9,6 +9,7 @@ import com.catstore.domain.Category;
 import com.catstore.service.CategoryService;
 import com.catstore.service.impl.CategoryServiceImpl;
 import com.catstore.utils.BaseServlet;
+import com.catstore.utils.BeanFactory;
 
 import net.sf.json.JSONArray;
 
@@ -25,8 +26,8 @@ public class CategoryServlet extends BaseServlet{
 	public String findAll(HttpServletRequest req,HttpServletResponse resp){
 		// 调用业务层:
 		try{
-			//CategoryService categoryService = (CategoryService) BeanFactory.getBean("categoryService");
-			CategoryService categoryService=new CategoryServiceImpl();
+			CategoryService categoryService = (CategoryService) BeanFactory.getBean("categoryService");
+//			CategoryService categoryService=new CategoryServiceImpl();
 			//将查询结果放到list
 			List<Category> list = categoryService.findAll();
 			// 将list转成JSON: 

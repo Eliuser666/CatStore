@@ -21,4 +21,10 @@ public interface OrderDao {
 
 	void update(Order order) throws Exception;
 
+	List<OrderItem> showDetail(String oid) throws Exception;
+
+	List<Order> findByState(int pstate) throws Exception;
+
+	List<Order> findAll() throws Exception;
+
 }

@@ -15,6 +15,7 @@ import com.catstore.domain.User;
 import com.catstore.service.UserService;
 import com.catstore.service.impl.UserServiceImpl;
 import com.catstore.utils.BaseServlet;
+import com.catstore.utils.BeanFactory;
 
 /**
  * Servlet implementation class UserServlet
@@ -32,8 +33,8 @@ public class UserServlet extends BaseServlet {
 	public String checkUsername(HttpServletRequest req, HttpServletResponse resp) {
 		try {
 			String username = req.getParameter("username");
-			UserService userService = new UserServiceImpl();
-
+			UserService userService = (UserService) BeanFactory.getBean("userService");
+//			UserService userService = new UserServiceImpl();
 			User existUser = userService.findByUsername(username);
 			if (existUser == null) {
 				resp.getWriter().println("1");
@@ -66,7 +67,8 @@ public class UserServlet extends BaseServlet {
 			ConvertUtils.register(new com.catstore.utils.MyDateConverter(), Date.class);
 			BeanUtils.populate(user, map);
 			// 调用业务层
-			UserService userService = new UserServiceImpl();
+//			UserService userService = new UserServiceImpl();
+			UserService userService = (UserService) BeanFactory.getBean("userService");
 			userService.save(user);
 			// 页面跳转
 			user.setState(2);//已注册
@@ -107,8 +109,8 @@ public class UserServlet extends BaseServlet {
 			User user = new User();
 			BeanUtils.populate(user, map);
 			// 调用业务层:
-	//		UserService userService = (UserService) BeanFactory.getBean("userService");
-			UserService userService=new UserServiceImpl();
+			UserService userService = (UserService) BeanFactory.getBean("userService");
+		//	UserService userService=new UserServiceImpl();
 			User existUser = userService.login(user);
 			if(existUser == null){
 				req.setAttribute("msg", "用户名或密码错误！");

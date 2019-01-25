@@ -2,6 +2,7 @@ package com.catstore.dao.impl;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -108,5 +109,39 @@ public class OrderDaoImpl implements OrderDao {
 		queryRunner.update(sql,params);
 		
 	}
+	@Override
+	public List<Order> findAll() throws Exception {
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "select * from orders order by ordertime desc";
+		List<Order> list = queryRunner.query(sql, new BeanListHandler<Order>(Order.class));
+		return list;
+	}
 
+	@Override
+	public List<Order> findByState(int pstate) throws Exception {
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "select * from orders where state = ? order by ordertime desc";
+		List<Order> list = queryRunner.query(sql, new BeanListHandler<Order>(Order.class),pstate);
+		return list;
+	}
+
+	@Override
+	public List<OrderItem> showDetail(String oid) throws Exception {
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "SELECT * FROM orderitem o,product p WHERE o.pid = p.pid AND o.oid = ?";
+		List<OrderItem> list = new ArrayList<OrderItem>();
+		List<Map<String,Object>> oList = queryRunner.query(sql, new MapListHandler(),oid);
+		for (Map<String, Object> map : oList) {
+			Product product = new Product();
+			BeanUtils.populate(product, map);
+			
+			OrderItem orderItem = new OrderItem();
+			BeanUtils.populate(orderItem, map);
+			
+			orderItem.setProduct(product);
+			
+			list.add(orderItem);
+		}
+		return list;
+	}
 }

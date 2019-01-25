@@ -1,6 +1,9 @@
 package com.catstore.service;
 
+import java.util.List;
+
 import com.catstore.domain.Order;
+import com.catstore.domain.OrderItem;
 import com.catstore.domain.PageBean;
 
 public interface OrderService {
@@ -12,5 +15,11 @@ public interface OrderService {
 	Order findByOid(String oid) throws Exception;
 
 	void update(Order order) throws Exception;
+
+	List<Order> findAll() throws Exception;
+
+	List<Order> findByState(int pstate) throws Exception;
+
+	List<OrderItem> showDetail(String oid) throws Exception;
 
 }

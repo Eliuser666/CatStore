@@ -10,6 +10,8 @@ import com.catstore.domain.Product;
 import com.catstore.service.ProductService;
 import com.catstore.service.impl.ProductServiceImpl;
 import com.catstore.utils.BaseServlet;
+import com.catstore.utils.BeanFactory;
+
 import java.util.List;
 
 /**
@@ -30,7 +32,8 @@ public class IndexServlet extends BaseServlet {
 
 		try {
 			// 查询热门商品
-			ProductService productService = new ProductServiceImpl();
+		//	ProductService productService = new ProductServiceImpl();
+			ProductService productService = (ProductService)BeanFactory.getBean("productService");
 			List<Product> hotList = productService.findByHot();
 			// 查询优惠促销
 			List<Product> discountsList = productService.findByDiscounts();

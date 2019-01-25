@@ -4,9 +4,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.catstore.dao.CategoryDao;
-import com.catstore.dao.impl.CategoryDaoImpl;
 import com.catstore.domain.Category;
 import com.catstore.service.CategoryService;
+import com.catstore.utils.BeanFactory;
+
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -33,8 +34,8 @@ public class CategoryServiceImpl implements CategoryService {
 			// 缓存中没有数据
 			System.out.println("缓存中没有数据 ,查询数据库=====");
 			
-			CategoryDao categoryDao = new CategoryDaoImpl();
-		//	CategoryDao categoryDao = (CategoryDao) BeanFactory.getBean("categoryDao");
+//			CategoryDao categoryDao = new CategoryDaoImpl();
+			CategoryDao categoryDao = (CategoryDao) BeanFactory.getBean("categoryDao");
 			list = categoryDao.findAll();
 			element = new Element("list",list); 
 			cache.put(element);
@@ -44,6 +45,54 @@ public class CategoryServiceImpl implements CategoryService {
 			list = (List<Category>)element.getObjectValue();
 		}
 		return list;
+	}
+
+
+	@Override
+	public void save(Category category) throws SQLException {
+		CategoryDao categoryDao = (CategoryDao) BeanFactory.getBean("categoryDao");
+		categoryDao.save(category);
+		
+		// 清空缓存:
+		CacheManager cacheManager = CacheManager.create(CategoryServiceImpl.class.getClassLoader().getResourceAsStream("ehcache.xml"));
+		// 从配置文件中获取名称为categoryCache缓存区
+		Cache cache = cacheManager.getCache("categoryCache");
+		// 从缓存中移除:
+		cache.remove("list");
+	}
+
+	@Override
+	public Category findById(String cid) throws SQLException {
+		CategoryDao categoryDao = (CategoryDao) BeanFactory.getBean("categoryDao");
+		
+		return categoryDao.findById(cid);
+	}
+
+	@Override
+	public void update(Category category) throws SQLException {
+		CategoryDao categoryDao = (CategoryDao) BeanFactory.getBean("categoryDao");
+		categoryDao.update(category);
+		
+		// 清空缓存:
+		CacheManager cacheManager = CacheManager.create(CategoryServiceImpl.class.getClassLoader().getResourceAsStream("ehcache.xml"));
+		// 从配置文件中获取名称为categoryCache缓存区
+		Cache cache = cacheManager.getCache("categoryCache");
+		// 从缓存中移除:
+		cache.remove("list");
+	}
+	
+	@Override
+	public void delete(String cid) throws SQLException {
+		// TODO Auto-generated method stub
+		CategoryDao categoryDao = (CategoryDao) BeanFactory.getBean("categoryDao");
+		categoryDao.delete(cid);
+		// 清空缓存:
+		CacheManager cacheManager = CacheManager.create(CategoryServiceImpl.class.getClassLoader().getResourceAsStream("ehcache.xml"));
+		// 从配置文件中获取名称为categoryCache缓存区
+		Cache cache = cacheManager.getCache("categoryCache");
+		// 从缓存中移除:
+		cache.remove("list");
+		
 	}
 
 }
