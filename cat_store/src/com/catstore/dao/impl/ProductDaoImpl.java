@@ -52,4 +52,48 @@ public class ProductDaoImpl implements ProductDao {
 		return list;
 	}
 
+
+	@Override
+	public Integer findCount() throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "select count(*) from product where pflag = ?";
+		Long count = (Long) queryRunner.query(sql, new ScalarHandler(), 0);
+		return count.intValue();
+	}
+
+	@Override
+	public List<Product> findByPage(int begin, Integer pageSize) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "select * from product where pflag = ? order by pdate desc limit ?,?";
+		List<Product> list = queryRunner.query(sql, new BeanListHandler<Product>(Product.class), 0, begin, pageSize);
+		return list;
+	}
+
+	@Override
+	public void save(Product product) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "insert into product values (?,?,?,?,?,?,?,?,?,?)";
+		Object[] params = { product.getPid(), product.getPname(), product.getMarket_price(), product.getShop_price(),
+				product.getPimage(), product.getPdate(), product.getIs_hot(), product.getPdesc(), product.getPflag(),
+				product.getCategory().getCid() };
+		queryRunner.update(sql, params);
+	}
+
+	@Override
+	public void update(Product product) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "update product set pname = ?,market_price=?,shop_price=?,pimage=?,is_hot=?,pdesc= ?,pflag=? where pid = ?";
+		Object[] params = { product.getPname(), product.getMarket_price(), product.getShop_price(),
+				product.getPimage(),product.getIs_hot(), product.getPdesc(), product.getPflag(),product.getPid()
+				 };
+		queryRunner.update(sql, params);
+	}
+
+	@Override
+	public List<Product> findByPushDown() throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "select * from product where pflag = ? order by pdate desc";
+		List<Product> list = queryRunner.query(sql, new BeanListHandler<Product>(Product.class), 1);
+		return list;
+		}
 }

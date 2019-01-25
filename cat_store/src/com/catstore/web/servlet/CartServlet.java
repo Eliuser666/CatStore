@@ -10,6 +10,7 @@ import com.catstore.domain.Product;
 import com.catstore.service.ProductService;
 import com.catstore.service.impl.ProductServiceImpl;
 import com.catstore.utils.BaseServlet;
+import com.catstore.utils.BeanFactory;
 
 /**
  * Servlet implementation class CartServlet
@@ -28,9 +29,8 @@ public class CartServlet extends BaseServlet {
 			// 封装CartItem:
 			CartItem cartItem = new CartItem();
 			cartItem.setCount(count);
-			ProductService productService = new ProductServiceImpl();
-			// ProductService productService = (ProductService)
-			// BeanFactory.getBean("productService");
+			// ProductService productService = new ProductServiceImpl();
+			ProductService productService = (ProductService) BeanFactory.getBean("productService");
 			Product product = productService.findByPid(pid);
 			cartItem.setProduct(product);
 			// 调用Cart中的方法处理
@@ -67,19 +67,20 @@ public class CartServlet extends BaseServlet {
 
 	/**
 	 * 从购物车中移除购物项的方法:removeCart
+	 * 
 	 * @param req
 	 * @return
 	 */
-	public String removeCart(HttpServletRequest req,HttpServletResponse resp){
-		try{
+	public String removeCart(HttpServletRequest req, HttpServletResponse resp) {
+		try {
 			// 接收参数:
 			String pid = req.getParameter("pid");
 			// 调用Cart中的clearCart的方法:
 			Cart cart = getCart(req);
 			cart.removeCart(pid);
 			// 页面跳转：
-			resp.sendRedirect(req.getContextPath()+"/jsp/cart.jsp");
-		}catch(Exception e){
+			resp.sendRedirect(req.getContextPath() + "/jsp/cart.jsp");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

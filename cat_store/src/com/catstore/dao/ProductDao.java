@@ -17,4 +17,14 @@ public interface ProductDao {
 
 	List<Product> findPageByCid(String cid, int begin, Integer pageSize) throws SQLException;
 
+	Integer findCount() throws SQLException;
+
+	List<Product> findByPage(int begin, Integer pageSize) throws SQLException;
+
+	void save(Product product) throws SQLException;
+
+	void update(Product product) throws SQLException;
+
+	List<Product> findByPushDown() throws SQLException;
+
 }

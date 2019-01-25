@@ -11,6 +11,7 @@ import com.catstore.domain.Order;
 import com.catstore.domain.OrderItem;
 import com.catstore.domain.PageBean;
 import com.catstore.service.OrderService;
+import com.catstore.utils.BeanFactory;
 import com.catstore.utils.JDBCUtils;
 
 public class OrderServiceImpl implements OrderService {
@@ -23,8 +24,8 @@ public class OrderServiceImpl implements OrderService {
 			conn = JDBCUtils.getConnection();
 			conn.setAutoCommit(false);
 			// 执行保存操作:
-			OrderDao orderDao = new OrderDaoImpl();
-			//OrderDao orderDao = (OrderDao) BeanFactory.getBean("orderDao");
+//			OrderDao orderDao = new OrderDaoImpl();
+			OrderDao orderDao = (OrderDao) BeanFactory.getBean("orderDao");
 			orderDao.saveOrder(conn,order);
 			// 循环保存订单中的订单项:
 			for(OrderItem orderItem : order.getOrderItems()){
@@ -48,8 +49,8 @@ public class OrderServiceImpl implements OrderService {
 		Integer pageSize = 5;
 		pageBean.setPageSize(pageSize);
 		// 设置总记录数:
-		OrderDao orderDao = new OrderDaoImpl();
-		//OrderDao orderDao = (OrderDao) BeanFactory.getBean("orderDao");
+//		OrderDao orderDao = new OrderDaoImpl();
+		OrderDao orderDao = (OrderDao) BeanFactory.getBean("orderDao");
 		Integer totalCount = orderDao.findCountByUid(uid);
 		pageBean.setTotalCount(totalCount);
 		// 设置总页数
@@ -65,17 +66,35 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Order findByOid(String oid) throws Exception {
-		//OrderDao orderDao = (OrderDao) BeanFactory.getBean("orderDao");
-		OrderDao orderDao = new OrderDaoImpl();
+		OrderDao orderDao = (OrderDao) BeanFactory.getBean("orderDao");
+		//OrderDao orderDao = new OrderDaoImpl();
 		return orderDao.findByOid(oid);
 	}
 
 	@Override
 	public void update(Order order) throws Exception {
-		OrderDao orderDao = new OrderDaoImpl();
-		//OrderDao orderDao = (OrderDao) BeanFactory.getBean("orderDao");
+		//OrderDao orderDao = new OrderDaoImpl();
+		OrderDao orderDao = (OrderDao) BeanFactory.getBean("orderDao");
 		orderDao.update(order);
 		
 	}
+	@Override
+	public List<Order> findAll() throws Exception {
+		OrderDao orderDao = (OrderDao) BeanFactory.getBean("orderDao");
+		return orderDao.findAll();
+	}
+
+	@Override
+	public List<Order> findByState(int pstate) throws Exception {
+		OrderDao orderDao = (OrderDao) BeanFactory.getBean("orderDao");
+		return orderDao.findByState(pstate);
+	}
+
+	@Override
+	public List<OrderItem> showDetail(String oid) throws Exception {
+		OrderDao orderDao = (OrderDao) BeanFactory.getBean("orderDao");
+		return orderDao.showDetail(oid);
+	}
+	
 
 }

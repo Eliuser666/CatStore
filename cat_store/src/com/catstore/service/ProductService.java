@@ -16,6 +16,14 @@ public interface ProductService {
 
 	PageBean<Product> findByPageCid(String cid, Integer currPage) throws SQLException;
 
+	PageBean<Product> findByPage(Integer currPage) throws SQLException;
+
+	void save(Product product) throws SQLException;
+
+	void update(Product product) throws SQLException;
+
+	List<Product> findByPushDown() throws SQLException;
+
 
 
 

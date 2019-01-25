@@ -12,6 +12,7 @@ import com.catstore.domain.Product;
 import com.catstore.service.ProductService;
 import com.catstore.service.impl.ProductServiceImpl;
 import com.catstore.utils.BaseServlet;
+import com.catstore.utils.BeanFactory;
 
 /**
  * Servlet implementation class ProductServlet
@@ -27,8 +28,8 @@ public class ProductServlet extends BaseServlet {
 			String cid = req.getParameter("cid");
 			Integer currPage = Integer.parseInt(req.getParameter("currPage"));
 			// 调用业务层:
-			ProductService productService =new ProductServiceImpl();
-			//ProductService productService = (ProductService) BeanFactory.getBean("productService");
+//			ProductService productService =new ProductServiceImpl();
+			ProductService productService = (ProductService) BeanFactory.getBean("productService");
 			PageBean<Product> pageBean = productService.findByPageCid(cid,currPage);
 			req.setAttribute("pageBean", pageBean);
 			return "/jsp/product_list.jsp";
@@ -47,8 +48,8 @@ public class ProductServlet extends BaseServlet {
 			String pid = req.getParameter("pid");
 			
 			// 调用业务层:
-			ProductService productService=new ProductServiceImpl();
-			//ProductService productService = (ProductService) BeanFactory.getBean("productService");
+//			ProductService productService=new ProductServiceImpl();
+			ProductService productService = (ProductService) BeanFactory.getBean("productService");
 			Product product = productService.findByPid(pid);
 //			
 //			// 记录用户的商品浏览记录: history
