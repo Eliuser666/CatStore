@@ -1,7 +1,7 @@
-<%-- <%@page import="com.itheima.store.domain.Product"%>
-<%@page import="com.itheima.store.service.impl.ProductServiceImpl"%>
-<%@page import="com.itheima.store.service.ProductService"%>
-<%@page import="com.itheima.store.utils.CookieUtils"%> --%>
+<%@page import="com.catstore.domain.Product"%>
+<%@page import="com.catstore.service.impl.ProductServiceImpl"%>
+<%@page import="com.catstore.service.ProductService"%>
+<%@page import="com.catstore.utils.CookieUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -83,18 +83,13 @@
 		</div>
 		<!-- 分页结束=======================        -->
 
-		<!--
-       		商品浏览记录:
-        -->
-	<%-- 	<div style="width:1210px;margin:0 auto; padding: 0 9px;border: 1px solid #ddd;border-top: 2px solid #999;height: 246px;">
-
+		<!--商品浏览记录:-->
+	<div style="width:1210px;margin:0 auto; padding: 0 9px;border: 1px solid #ddd;border-top: 2px solid #999;height: 246px;">
 			<h4 style="width: 50%;float: left;font: 14px/30px " 微软雅黑 ";">浏览记录</h4>
 			<div style="clear: both;"></div>
-
 			<div style="overflow: hidden;">
-
 				<ul style="list-style: none;">
-				<%
+							<%
 					Cookie[] cookies = request.getCookies();
 				    Cookie cookie = CookieUtils.findCookie(cookies, "history");
 				    ProductService productService = new ProductServiceImpl();
@@ -112,12 +107,9 @@
 				    	}
 				    }
 				%>
-					
-				
 				</ul>
-
 			</div>
-		</div> --%>
+		</div> 
 		<div style="margin-top:50px;">
 			<img src="${ pageContext.request.contextPath }/image/footer.jpg" width="100%" height="78" alt="我们的优势" title="我们的优势" />
 		</div>
@@ -136,9 +128,8 @@
 			</ul>
 		</div>
 		<div style="text-align: center;margin-top: 5px;margin-bottom:20px;">
-			Copyright &copy; 2005-2016 传智商城 版权所有
+			Copyright &copy; 2011-2019 馋猫商城 版权所有
 		</div>
-
 	</body>
 
 </html>
