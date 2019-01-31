@@ -119,4 +119,36 @@
     <servlet-name>AdminOrderServlet</servlet-name>
     <url-pattern>/AdminOrderServlet</url-pattern>
   </servlet-mapping>
+   <filter>
+    <filter-name>AutoLoginFilter</filter-name>
+    <filter-class>com.catstore.web.filter.AutoLoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AutoLoginFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>PrivilegeFilter</filter-name>
+    <filter-class>com.catstore.web.filter.PrivilegeFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>PrivilegeFilter</filter-name>
+    <url-pattern>/jsp/order_list.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>PrivilegeFilter</filter-name>
+    <url-pattern>/jsp/order_info.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>PrivilegeFilter</filter-name>
+    <url-pattern>/OrderServlet</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>PrivilegeFilter</filter-name>
+    <url-pattern>/jsp/cart.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>PrivilegeFilter</filter-name>
+    <url-pattern>/CartServlet</url-pattern>
+  </filter-mapping>
 </web-app>
