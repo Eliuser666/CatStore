@@ -29,7 +29,7 @@ import com.catstore.utils.UUIDUtils;
 /**
  * Servlet implementation class AddProductServlet
  */
-public class AddProductServlet extends HttpServlet {
+public class EditProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -92,7 +92,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			
 			// 存入到数据库:
 			ProductService productService = (ProductService) BeanFactory.getBean("productService");
-			productService.save(product);
+			productService.update(product);
 			
 			// 页面跳转:
 			response.sendRedirect(request.getContextPath()+"/AdminProductServlet?method=findByPage&currPage=1");
